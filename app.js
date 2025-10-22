@@ -401,8 +401,11 @@ function importSetup(file) {
 
 // ===== Step 2: Votación =====
 function toStep2() {
-  if (!buildPool() || STATE.pool.length !== 25) {
-    alert("Necesitás 25 videos (5×5) y sin duplicados.");
+  const target = poolTarget();
+  if (!buildPool() || STATE.pool.length !== target) {
+    alert(
+      `Necesitás ${target} videos (${STATE.players.length} jugadores × ${VIDEOS_PER_PLAYER}) y sin duplicados.`
+    );
     return;
   }
   step1.style.display = "none";
