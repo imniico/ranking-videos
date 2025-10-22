@@ -1,0 +1,446 @@
+:root {
+  --bg: #0f172a;
+  --panel: #111827;
+  --muted: #1f2937;
+  --text: #e5e7eb;
+  --sub: #9ca3af;
+  --pri: #22d3ee;
+  --acc: #a78bfa;
+  --danger: #f87171;
+  --ok: #34d399;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: linear-gradient(180deg, #0b1023, #0f172a 30%);
+  font-family: Inter, system-ui, Segoe UI, Roboto, Arial;
+  color: var(--text);
+}
+h1,
+h2,
+h3 {
+  margin: 0 0 0.5rem;
+}
+.wrap {
+  margin: 0 auto;
+  padding: 24px;
+}
+.title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.badge {
+  border: 1px solid var(--pri);
+  color: var(--pri);
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+}
+.panel {
+  background: rgba(17, 24, 39, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 16px;
+}
+.grid {
+  display: grid;
+  gap: 16px;
+}
+.g-2 {
+  grid-template-columns: 1fr 1fr;
+}
+.g-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+@media (max-width: 1000px) {
+  .g-2,
+  .g-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 600;
+  color: #0b1023;
+  background: var(--pri);
+  transition: 0.2s box-shadow, 0.2s transform;
+}
+button:hover {
+  box-shadow: 0 10px 24px rgba(34, 211, 238, 0.25);
+}
+button.ghost {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--text);
+}
+button.topten {
+  font-size: 16px;
+  width: 100%;
+}
+button.warn {
+  background: var(--danger);
+  color: #111;
+}
+button.ok {
+  background: var(--ok);
+  color: #111;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.stepper {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 12px 0 18px;
+}
+.chip {
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+  color: var(--sub);
+}
+.chip.active {
+  border-style: solid;
+  color: var(--text);
+  border-color: var(--pri);
+  box-shadow: inset 0 0 0 1px var(--pri);
+}
+.muted {
+  color: var(--sub);
+}
+
+.input {
+  background: #0b1226;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 10px 12px;
+  width: 100%;
+  color: var(--text);
+}
+label {
+  font-size: 0.9rem;
+  color: var(--sub);
+}
+.row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.v-gap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.card .media {
+  aspect-ratio: 16/9;
+  background: #020617;
+  position: relative;
+}
+.card .media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.card .content {
+  padding: 10px;
+}
+.card .content .meta {
+  font-size: 0.8rem;
+  color: var(--sub);
+}
+
+/* Estado de card seleccionada por el jugador actual */
+.card.picked {
+  outline: 2px solid var(--ok);
+  box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.25);
+}
+
+/* Overlay con el número del puesto arriba de la miniatura */
+.rank-overlay {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--ok);
+  color: #111;
+  font-weight: 900;
+  display: grid;
+  place-items: center;
+  font-size: 0.95rem;
+  z-index: 2;
+}
+
+/* Aseguramos posicionamiento absoluto dentro de la miniatura */
+.card .media {
+  position: relative;
+  aspect-ratio: 16/9;
+}
+
+/* Botón verde deshabilitado consistente */
+button.ok[disabled] {
+  opacity: 1;
+  cursor: default;
+}
+
+.mini {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 8px;
+  border-radius: 10px;
+  background: #0d142a;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.mini img {
+  width: 72px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #000;
+}
+.mini .title {
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+.cols {
+  display: grid;
+  grid-template-columns: 2.2fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 1100px) {
+  .cols {
+    grid-template-columns: 1fr;
+  }
+}
+
+.droplist {
+  min-height: 120px;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+}
+.droplist.dragover {
+  background: rgba(167, 139, 250, 0.08);
+}
+.rank {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background: var(--acc);
+  color: #111;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+}
+.right {
+  margin-left: auto;
+}
+/* contenedor de la barra (crece) */
+.track {
+  flex: 1;
+  max-width: 320px;
+  height: 18px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08); /* línea base tenue */
+  overflow: hidden;
+}
+
+/* la barra real (no debe tener flex:1) */
+.bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--pri), var(--acc));
+  border-radius: 10px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table th,
+.table td {
+  padding: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: left;
+}
+.hint {
+  font-size: 0.85rem;
+  color: var(--sub);
+}
+.pill {
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #0a1228;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.8rem;
+}
+.footer {
+  margin-top: 18px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0 6px;
+  border-radius: 6px;
+  background: #0b1226;
+}
+
+/* === PASO 2: jugadores como FILAS === */
+.pool-rows {
+  display: grid;
+  gap: 12px;
+}
+/* fila con 2 columnas: [nombre jugador] [tarjetas] */
+.pool-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+.pool-row-head {
+  font-weight: 700;
+  color: var(--sub);
+  padding-top: 6px;
+}
+/* las 5 tarjetas en horizontal */
+.pool-row-videos {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(220px, 1fr));
+  gap: 12px;
+}
+/* responsive: 3 → 2 → 1 tarjetas por fila */
+@media (max-width: 1200px) {
+  .pool-row-videos {
+    grid-template-columns: repeat(3, minmax(220px, 1fr));
+  }
+}
+@media (max-width: 900px) {
+  .pool-row {
+    grid-template-columns: 1fr;
+  }
+  .pool-row-head {
+    padding-top: 0;
+  }
+  .pool-row-videos {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .pool-row-videos {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* preview debajo de cada input en paso 1 */
+.url-preview {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 8px;
+  border-radius: 10px;
+  background: #0d142a;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.url-preview img {
+  width: 96px;
+  height: 54px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #000;
+}
+.url-preview .t {
+  font-size: 0.9rem;
+  line-height: 1.2;
+}
+
+.grid-votos {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 1200px) {
+  .grid-votos {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+  .grid-votos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .grid-votos {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* La fila queda "tapada": todo lo que es revelable se blurea */
+tr.concealed .concealable {
+  filter: blur(20px);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* Celda del botón a la izquierda */
+td.reveal-cell {
+  width: 1%;
+  white-space: nowrap;
+}
+
+/* Botón de revelar */
+.reveal-btn {
+  white-space: nowrap;
+}
+
+.media {
+  position: relative;
+  cursor: pointer;
+}
+.media a {
+  display: block;
+}
+.media a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.2s;
+}
+.media a:hover::after {
+  background: rgba(0, 0, 0, 0.15);
+}

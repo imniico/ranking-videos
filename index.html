@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ranking de videos</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="title">
+        <h1>Ranking de videos</h1>
+        <span class="badge">5 videos c/u</span>
+      </div>
+
+      <div class="stepper" id="stepper"></div>
+
+      <!-- STEP 1: Carga de videos -->
+      <section class="panel" id="step1">
+        <h2>1) Cargar jugadores y 5 videos c/u</h2>
+        <div class="toolbar" style="margin: 10px 0 16px">
+          <label class="row" style="gap: 6px; align-items: center">
+            <span>Cant. jugadores:</span>
+            <select id="playerCount" class="input" style="width: 120px">
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5" selected>5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+            <button class="ghost" id="btnDemo">Cargar ejemplo</button>
+            <button class="ghost" id="btnExport">Exportar setup</button>
+            <input
+              type="file"
+              id="importFile"
+              style="display: none"
+              accept="application/json"
+            />
+            <button class="ghost" id="btnImport">Importar setup</button>
+          </label>
+
+          <span class="chip" id="dupWarn" style="display: none"
+            >Hay videos duplicados</span
+          >
+          <span class="right muted" id="vCount">0/25</span>
+        </div>
+
+        <div class="grid g-3" id="playersForm"></div>
+
+        <div class="footer">
+          <button class="warn" id="btnClearAll">Limpiar videos</button>
+          <button id="toStep2" class="ok">Armar Pool (25)</button>
+        </div>
+      </section>
+
+      <!-- STEP 2: Votación individual -->
+      <section class="panel" id="step2" style="display: none">
+        <div
+          class="row"
+          style="justify-content: space-between; align-items: center"
+        >
+          <h2>2) Votar Top 10</h2>
+          <div class="row">
+            <label for="playerPicker">Jugador:</label>
+            <select id="playerPicker" class="input"></select>
+          </div>
+        </div>
+
+        <div class="toolbar" style="margin: 8px 0 16px">
+          <button class="ghost" id="autoPick">Rellenar al azar</button>
+          <button class="ghost" id="clearPick">Limpiar</button>
+          <span class="chip" id="pickInfo">0/10 seleccionados</span>
+        </div>
+
+        <div class="cols">
+          <div>
+            <div id="poolList"></div>
+          </div>
+          <div>
+            <h3 class="muted">Tu Top 10 (arrastrá para ordenar)</h3>
+            <div
+              id="top10"
+              class="droplist"
+              ondragover="event.preventDefault()"
+            ></div>
+            <div class="hint" style="margin-top: 8px">
+              Puntaje: 1° = 10 pts, 2° = 9, …, 10° = 1. Empates: más #1, luego
+              mejor promedio de puesto.
+            </div>
+            <div class="v-gap" style="margin-top: 12px">
+              <button id="saveBallot" class="ok">
+                Guardar voto del jugador
+              </button>
+              <span class="muted" id="savedState"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <button class="ghost" id="back1">← Volver a carga</button>
+          <button id="toStep3">Calcular resultados →</button>
+        </div>
+      </section>
+
+      <!-- STEP 3: Resultados -->
+      <section class="panel" id="step3" style="display: none">
+        <h2>3) Resultados finales</h2>
+        <div class="toolbar" style="margin: 8px 0 16px">
+          <button class="ghost" id="btnReset">Reiniciar todo</button>
+          <button class="ghost" id="btnExportAll">Exportar partida</button>
+          <input
+            type="file"
+            id="importAll"
+            style="display: none"
+            accept="application/json"
+          />
+          <button class="ghost" id="btnImportAll">Importar partida</button>
+        </div>
+
+        <div id="results"></div>
+
+        <h3 style="margin-top: 18px">Votos por jugador</h3>
+        <div id="ballots"></div>
+
+        <div class="footer">
+          <button class="ghost" id="back2">← Volver a votación</button>
+        </div>
+      </section>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
